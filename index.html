@@ -1,0 +1,103 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Password generator</title>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+
+    <script type="text/javascript">
+
+      function new_pass() {
+        var len = document.getElementById('len').value;
+        var mix = document.getElementById('mix').checked;
+        var number = document.getElementById('number').checked;
+        var mixWithSymbols = document.getElementById('mixWithSymbols').checked;
+        var uniqe = document.getElementById('uniqe').checked;
+        var secure = document.getElementById('secure').checked;
+
+
+        var pass = document.getElementById('pass');
+        pass.value =  password_generator(len,mix,number,mixWithSymbols,uniqe,secure);
+      }
+
+    </script>
+  </head>
+  <body>
+    <p>
+      Generate strong password.
+      you can test generated password in <a href="http://www.passwordmeter.com/">http://www.passwordmeter.com/</a>
+    </p>
+
+    <hr />
+    
+    <h3>Option</h3>
+
+    <label>
+      Length of generated password
+    </label>
+    <input id="len" value="16" class="form-control" type="text" placeholder="Length of generated password" />
+
+    <label class="checkbox-inline">
+      <input type="checkbox" id="mix" value="mix" checked> 
+      Mixup words and numbers
+    </label>
+
+    <label class="checkbox-inline">
+      <input type="checkbox" id="number" value="number" > 
+      Generated password contain only number
+    </label>
+
+
+    <label class="checkbox-inline">
+      <input type="checkbox" id="mixWithSymbols" value="mixWithSymbols" checked> 
+      Mixup with symbols
+    </label>
+
+    <label class="checkbox-inline">
+      <input type="checkbox" id="uniqe" value="uniqe" checked> 
+      Generated password more uniqe than before use date.now() for this purpose
+    </label>
+
+
+    <label class="checkbox-inline">
+      <input type="checkbox" id="secure" value="secure" checked> 
+      Increase security for prevent burst force
+    </label>
+
+
+    <hr />
+
+    <div class="col-lg-6">
+      <div class="input-group">
+        <span class="input-group-btn">
+          <button class="btn btn-primary"  onclick="new_pass()" type="button">Generate password</button>
+        </span>
+        <input id="pass" type="text" class="form-control" placeholder="password">
+        <span class="input-group-btn">
+          <button class="btn btn-primary" id="copy" data-clipboard-action="copy" data-clipboard-target="#pass">copy</button>
+        </span>
+      </div>
+      <span id="notice">-</span>
+    </div>
+    <script type="text/javascript" src="script.js" ></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js"></script>
+
+    <script type="text/javascript">
+      
+
+      var clipboard = new Clipboard('#copy');
+      clipboard.on('success', function(e) {
+        var notice = document.getElementById("notice");
+        notice.outerHTML = "<div style='color:green'>Password copied to clipboard </div> ";
+      });
+
+      clipboard.on('error', function(e) {
+        var notice = document.getElementById("notice");
+        notice.outerHTML = "<div style='color:red'>Password can not copy to clipboard</div>";
+      });
+
+    </script>
+
+  </body>
+  </html>
